@@ -5,8 +5,11 @@ import {View, TextInput, Button, StyleSheet , Alert} from "react-native";
 const AddTodo = ({addTodoHandler}) => {
 const [input,setInput]= useState('')
 const sendTodo = ()=>{
-    addTodoHandler(input)
-    setInput('')
+    if(input.length){
+        addTodoHandler(input)
+        setInput('')
+    }
+
 }
     return (
         <View style={styles.wrapper}>

@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, View,Text} from 'react-native';
+import {Alert, StyleSheet, View, ScrollView, FlatList} from 'react-native';
 import {AddTodo, NavBar} from "./src";
 import Todo from "./src/Todo";
 import {useState} from "react";
@@ -6,27 +6,23 @@ import {useState} from "react";
 
 export default function App() {
 
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([{key: Math.random().toString(), name: 'sssse'}]);
 
     const addTodoHandler = (newTodoName) => {
-        setTodos(prev=>[{key: Math.random().toString(), name: newTodoName},...prev])
+        setTodos(prev => [{key: Math.random().toString(), name: newTodoName}, ...prev])
 
     }
     return (
         <View style={styles.appWrapper}>
             <NavBar title='Todo App'/>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <AddTodo addTodoHandler={addTodoHandler}/>
-
-                {
-                    todos.map(todo=>{
-                        return(
-                            <Todo todo={todo} key={todo.key}/>
-                        )
-                    })
-                }
-
-            </View>
+                <FlatList data={todos} renderItem={({item}) => {
+                    return (
+                        <Todo todo={item} key={item.key}/>
+                    )
+                }}/>
+            </ScrollView>
         </View>
     );
 }
@@ -37,8 +33,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     container: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         width: '100%',
         paddingHorizontal: 10
     }
