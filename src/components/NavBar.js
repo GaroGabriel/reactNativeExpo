@@ -1,4 +1,5 @@
 import {StyleSheet, View, Text} from "react-native";
+import {THEME} from "../theme";
 
 const NavBar = ({title}) => {
     return (
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
         paddingBottom:10,
         borderBottomLeftRadius:8,
         borderBottomRightRadius:8,
-        backgroundColor:'#000',
+        backgroundColor:THEME.BLACK_COLOR,
         width:'100%'
     },
     navBar__text: {
-        color: '#fff',
+        color: THEME.WHITE_COLOR,
         fontSize:18
     }
 })
