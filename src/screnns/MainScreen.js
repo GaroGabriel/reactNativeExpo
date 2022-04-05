@@ -1,26 +1,35 @@
 import React from 'react';
-import {FlatList, ScrollView, StyleSheet,  View} from "react-native";
-import {AddTodo,Todo} from "../components/__index";
+import {FlatList, ScrollView, StyleSheet, View, Image} from "react-native";
+import {AddTodo, Todo} from "../components/__index";
 
 
-const MainScreen = ({addTodoHandler,todos,deleteTodoHandler,onOpenHandler}) => {
+const MainScreen = ({addTodoHandler, todos, deleteTodoHandler, onOpenHandler}) => {
+    let content = (
+        <FlatList
+            keyExtractor={item => item.key.toString()}
+            data={todos}
+            renderItem={({item}) => {
+                return (
+                    <Todo
+                        todo={item}
+                        deleteTodoHandler={deleteTodoHandler}
+                        onOpenHandler={onOpenHandler}
+                    />
+                )
+            }}/>
+    )
+    if (!todos.length) {
+        content = <View style={styles.imgWrapper}>
+            <Image style={styles.img} source={require('../../assets/no-items.png')}/>
+        </View>
+    }
+
 
     return (
-            <ScrollView style={styles.container}>
-                <AddTodo addTodoHandler={addTodoHandler}/>
-                <FlatList
-                    keyExtractor={item => item.key.toString()}
-                    data={todos}
-                    renderItem={({item}) => {
-                        return (
-                            <Todo
-                                todo={item}
-                                deleteTodoHandler={deleteTodoHandler}
-                                onOpenHandler={onOpenHandler}
-                            />
-                        )
-                    }}/>
-            </ScrollView>
+        <View style={styles.container}>
+            <AddTodo addTodoHandler={addTodoHandler} style={styles.img}/>
+            {content}
+        </View>
     );
 };
 
@@ -30,5 +39,17 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
 
+    },
+    imgWrapper: {
+        alignItems: 'center',
+        justifyContent: "center",
+        height: 300,
+        padding: 10,
+        marginHorizontal: 30
+    },
+    img: {
+        width: '100%',
+        height: '100%',
+        resizeMode:'contain'
     }
 })

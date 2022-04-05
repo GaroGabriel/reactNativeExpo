@@ -4,5 +4,4 @@ export const THEME ={
     BLACK_COLOR: '#000000',
     WHITE_COLOR: '#FFFFFF',
     BLUE_COLOR:'#4b69e5'
-
 }

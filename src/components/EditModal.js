@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Button, Modal,Alert} from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 import {THEME} from "../theme";
+import AppButton from "./UI/AppButton";
 
 
 const EditModal = ({visible, oncancel, value, onSave}) => {
@@ -24,10 +26,19 @@ Alert.alert('not correct',`min length is 3 now is ${title.trim().length}`)
                     autoCapitalize='none'
                     autoCorrect={false}/>
                 <View style={styles.buttons}>
-                    <Button title='cancel' onPress={oncancel} color={THEME.DANGER_COLOR}/>
-                    <Button title='save' color={THEME.BLUE_COLOR} onPress={() => {
+                    <AppButton onPress={oncancel} color={THEME.DANGER_COLOR}>
+                        <MaterialIcons name="cancel" size={24} color={THEME.WHITE_COLOR} />
+                    </AppButton>
+                    {/*<Button title='cancel' onPress={oncancel} color={THEME.DANGER_COLOR}/>*/}
+                    {/*<Button title='save' color={THEME.BLUE_COLOR} onPress={() => {*/}
+                    {/*    saveHandler()*/}
+                    {/*}}/>*/}
+
+                    <AppButton onPress={() => {
                         saveHandler()
-                    }}/>
+                    }} color={THEME.BLUE_COLOR}>
+                        <MaterialIcons name="save" size={24} color={THEME.WHITE_COLOR} />
+                    </AppButton>
                 </View>
             </View>
         </Modal>

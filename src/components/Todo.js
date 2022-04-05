@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, StyleSheet, TouchableOpacity} from "react-native";
+import AppText from "./UI/AppText";
 
 const Todo = ({todo,deleteTodoHandler,onOpenHandler}) => {
     return (
@@ -8,7 +9,7 @@ const Todo = ({todo,deleteTodoHandler,onOpenHandler}) => {
             onPress={()=>{onOpenHandler(todo.key)}}
         >
             <View style={styles.todoWrapper}>
-                <Text> {todo.name}</Text>
+                <AppText> {todo.name}</AppText>
             </View>
         </TouchableOpacity>
     );

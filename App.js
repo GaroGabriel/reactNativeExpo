@@ -1,20 +1,39 @@
-import {StyleSheet, View,Alert} from 'react-native';
-import {NavBar} from "./src/components/__index";
-
+import {StyleSheet, View, Alert} from 'react-native';
 import {useState} from "react";
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading';
+
+import {NavBar} from "./src/components/__index";
 import MainScreen from "./src/screnns/MainScreen";
 import TodoScreen from "./src/screnns/TodoScreen";
 
 
+const loadApplication = async () => {
+    await Font.loadAsync({
+        'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+        'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf')
+    })
+}
+
 export default function App() {
+
+    const [isReady, setIsReady] = useState(false)
     const [todoId, setTodoId] = useState(null)
-    const [todos, setTodos] = useState([{key: Math.random().toString(), name: 'sssse'}]);
+    const [todos, setTodos] = useState([]);
+
+    if (!isReady) {
+        return (<AppLoading
+            startAsync={loadApplication}
+            onFinish={() => setIsReady(true)}
+            onError={err => console.log(err)}
+        />)
+    }
 
     const addTodoHandler = (newTodoName) => {
         setTodos(prev => [{key: Math.random().toString(), name: newTodoName}, ...prev])
     }
     const deleteTodoHandler = (todoId) => {
-       const deleteTodo =  todos.filter(t=>t.key === todoId)
+        const deleteTodo = todos.filter(t => t.key === todoId)
         Alert.alert(
             "Do you want to delete ?",
             `${deleteTodo[0].name}`,
@@ -24,27 +43,29 @@ export default function App() {
                     onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
-                { text: "OK", onPress: () => {
+                {
+                    text: "OK", onPress: () => {
                         setTodoId(null)
                         setTodos(prev => prev.filter(t => t.key !== todoId))
-                    }}
+                    }
+                }
             ]
         );
 
 
     }
-    const  onOpenHandler = (id) => {
+    const onOpenHandler = (id) => {
         setTodoId(id)
 
     }
-    const  goBackHandler = () => {
+    const goBackHandler = () => {
         setTodoId(null)
     }
 
-    const updateTodo = (id,title) => {
-        console.log(id,title)
-        setTodos(prev=>prev.map(todo=>{
-            if(todo.key === id){
+    const updateTodo = (id, title) => {
+        console.log(id, title)
+        setTodos(prev => prev.map(todo => {
+            if (todo.key === id) {
                 todo.name = title
             }
             return todo
@@ -58,7 +79,7 @@ export default function App() {
         onOpenHandler={onOpenHandler}
     />
     if (todoId) {
-        const selectedTodo = todos.find(todo=>todo.key === todoId)
+        const selectedTodo = todos.find(todo => todo.key === todoId)
         content = <TodoScreen
             goBack={goBackHandler}
             todo={selectedTodo}
@@ -82,10 +103,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    content:{
+    content: {
 
-            width: '100%',
-            paddingHorizontal: 10
+        width: '100%',
+        paddingHorizontal: 10
     }
 
 });

@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Button} from "react-native";
+import {StyleSheet, View, Text, Dimensions} from "react-native";
 import {THEME} from "../theme";
+import {FontAwesome,AntDesign}from '@expo/vector-icons'
 import AppCard from "../components/UI/AppCard";
 import {EditModal} from "../components/__index";
+import AppTextBold from "../components/UI/AppTextBold";
+import AppButton from "../components/UI/AppButton";
 
 const TodoScreen = ({goBack, todo, deleteTodoHandler,onSave}) => {
 
@@ -22,22 +25,26 @@ const TodoScreen = ({goBack, todo, deleteTodoHandler,onSave}) => {
 
             />
             <AppCard style={styles.card}>
-                <Text style={styles.title}>{todo.name}</Text>
-                <Button title='Edit' onPress={() => {
+                <AppTextBold style={styles.title}>{todo.name}</AppTextBold>
+                <AppButton onPress={() => {
                     setModal(true)
-                }}/>
+                }} color={THEME.BLUE_COLOR}>
+                    <FontAwesome name="edit" size={24} color={THEME.WHITE_COLOR} />
+                </AppButton>
             </AppCard>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <Button
-                        title='back'
-                        onPress={goBack}
-                        color={THEME.GRAY_COLOR}/>
+                    <AppButton onPress={goBack} color={THEME.BLUE_COLOR}>
+
+                        <AntDesign name="back" size={24} color={THEME.WHITE_COLOR} />
+                    </AppButton>
+
                 </View>
                 <View style={styles.button}>
-                    <Button
-                        title='Delete'
-                        onPress={() => deleteTodoHandler(todo.key)} color={THEME.DANGER_COLOR}/>
+                    <AppButton onPress={() => deleteTodoHandler(todo.key)} color={THEME.DANGER_COLOR}>
+                        <AntDesign name="delete" size={24} color={THEME.WHITE_COLOR} />
+
+                    </AppButton>
                 </View>
             </View>
         </View>
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     button: {
-        width: '45%'
+        width: Dimensions.get('window').width /3
     },
     title: {
         fontSize: 20
