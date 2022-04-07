@@ -2,14 +2,16 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from "react-native";
 import AppText from "./UI/AppText";
 
-const Todo = ({todo,deleteTodoHandler,onOpenHandler}) => {
+const Todo = ({todo,removeTodo,onOpenHandler}) => {
     return (
         <TouchableOpacity
-            onLongPress={()=> deleteTodoHandler(todo.key)}
-            onPress={()=>{onOpenHandler(todo.key)}}
+            onLongPress={()=> {
+                removeTodo(todo.id)
+            }}
+            onPress={()=>{onOpenHandler(todo.id)}}
         >
             <View style={styles.todoWrapper}>
-                <AppText> {todo.name}</AppText>
+                <AppText> {todo.title}</AppText>
             </View>
         </TouchableOpacity>
     );

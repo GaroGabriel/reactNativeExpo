@@ -29,10 +29,6 @@ Alert.alert('not correct',`min length is 3 now is ${title.trim().length}`)
                     <AppButton onPress={oncancel} color={THEME.DANGER_COLOR}>
                         <MaterialIcons name="cancel" size={24} color={THEME.WHITE_COLOR} />
                     </AppButton>
-                    {/*<Button title='cancel' onPress={oncancel} color={THEME.DANGER_COLOR}/>*/}
-                    {/*<Button title='save' color={THEME.BLUE_COLOR} onPress={() => {*/}
-                    {/*    saveHandler()*/}
-                    {/*}}/>*/}
 
                     <AppButton onPress={() => {
                         saveHandler()

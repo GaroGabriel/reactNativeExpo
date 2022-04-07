@@ -3,16 +3,16 @@ import {FlatList, ScrollView, StyleSheet, View, Image} from "react-native";
 import {AddTodo, Todo} from "../components/__index";
 
 
-const MainScreen = ({addTodoHandler, todos, deleteTodoHandler, onOpenHandler}) => {
+const MainScreen = ({addTodo, todos, removeTodo, onOpenHandler}) => {
     let content = (
         <FlatList
-            keyExtractor={item => item.key.toString()}
+            keyExtractor={item => item.id.toString()}
             data={todos}
             renderItem={({item}) => {
                 return (
                     <Todo
                         todo={item}
-                        deleteTodoHandler={deleteTodoHandler}
+                        removeTodo={removeTodo}
                         onOpenHandler={onOpenHandler}
                     />
                 )
@@ -27,7 +27,7 @@ const MainScreen = ({addTodoHandler, todos, deleteTodoHandler, onOpenHandler}) =
 
     return (
         <View style={styles.container}>
-            <AddTodo addTodoHandler={addTodoHandler} style={styles.img}/>
+            <AddTodo addTodo={addTodo} style={styles.img}/>
             {content}
         </View>
     );

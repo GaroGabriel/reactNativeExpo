@@ -7,25 +7,25 @@ import {EditModal} from "../components/__index";
 import AppTextBold from "../components/UI/AppTextBold";
 import AppButton from "../components/UI/AppButton";
 
-const TodoScreen = ({goBack, todo, deleteTodoHandler,onSave}) => {
+const TodoScreen = ({goBack, todo, removeTodo,onSave}) => {
 
 
     const [modal, setModal] = useState(false)
     const saveHandler = (title)=>{
-        onSave(todo.key,title)
+        onSave(todo.id,title)
         setModal(false)
     }
     return (
         <View>
             <EditModal
-                value={todo.name}
+                value={todo.title}
                 visible={modal}
                 oncancel={()=>setModal(false)}
                 onSave={saveHandler}
 
             />
             <AppCard style={styles.card}>
-                <AppTextBold style={styles.title}>{todo.name}</AppTextBold>
+                <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
                 <AppButton onPress={() => {
                     setModal(true)
                 }} color={THEME.BLUE_COLOR}>
@@ -41,7 +41,9 @@ const TodoScreen = ({goBack, todo, deleteTodoHandler,onSave}) => {
 
                 </View>
                 <View style={styles.button}>
-                    <AppButton onPress={() => deleteTodoHandler(todo.key)} color={THEME.DANGER_COLOR}>
+                    <AppButton onPress={() => {
+                        removeTodo(todo.id)
+                    }} color={THEME.DANGER_COLOR}>
                         <AntDesign name="delete" size={24} color={THEME.WHITE_COLOR} />
 
                     </AppButton>

@@ -4,11 +4,11 @@ import {THEME} from "../theme";
 import {AntDesign} from '@expo/vector-icons';
 
 
-const AddTodo = ({addTodoHandler}) => {
+const AddTodo = ({addTodo}) => {
     const [input, setInput] = useState('')
     const sendTodo = () => {
         if (input.length) {
-            addTodoHandler(input)
+            addTodo(input)
             setInput('')
             Keyboard.dismiss()
         }
