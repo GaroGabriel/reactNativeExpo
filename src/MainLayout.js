@@ -7,29 +7,19 @@ import {TodoContext} from "./context/todo/todoContext";
 import {ScreenContext} from "./context/screen/screenContext";
 
 const MainLayout = () => {
-    const {todos, addTodo, removeTodo, updateTodo,} = useContext(TodoContext)
-    const {todoId,changeScreen}=useContext(ScreenContext)
 
-    let content = <MainScreen
-        todos={todos}
-        addTodo={addTodo}
-        removeTodo={removeTodo}
-        onOpenHandler={changeScreen}
-    />
-    if (todoId) {
-        const selectedTodo = todos.find(todo => todo.id === todoId)
-        content = <TodoScreen
-            goBack={()=>changeScreen(null)}
-            todo={selectedTodo}
-            removeTodo={removeTodo}
-            onSave={updateTodo}
-        />
-    }
+    const {todoId}=useContext(ScreenContext)
+
+    // let content = <MainScreen/>
+    // if (todoId) {
+    //     const selectedTodo = todos.find(todo => todo.id === todoId)
+    //     content = <TodoScreen/>
+    // }
     return (
         <View style={styles.appWrapper}>
             <NavBar title='Todo App'/>
             <View style={styles.content}>
-                {content}
+                {todoId?<TodoScreen/>:<MainScreen/>}
             </View>
         </View>
     );

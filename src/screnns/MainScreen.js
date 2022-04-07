@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {FlatList, ScrollView, StyleSheet, View, Image} from "react-native";
 import {AddTodo, Todo} from "../components/__index";
+import {TodoContext} from "../context/todo/todoContext";
+import {ScreenContext} from "../context/screen/screenContext";
 
 
-const MainScreen = ({addTodo, todos, removeTodo, onOpenHandler}) => {
+const MainScreen = () => {
+const {addTodo, todos, removeTodo}=useContext(TodoContext)
+    const {changeScreen} = useContext(ScreenContext)
     let content = (
         <FlatList
             keyExtractor={item => item.id.toString()}
@@ -13,7 +17,7 @@ const MainScreen = ({addTodo, todos, removeTodo, onOpenHandler}) => {
                     <Todo
                         todo={item}
                         removeTodo={removeTodo}
-                        onOpenHandler={onOpenHandler}
+                        onOpenHandler={changeScreen}
                     />
                 )
             }}/>
