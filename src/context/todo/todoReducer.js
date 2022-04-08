@@ -1,12 +1,20 @@
-import {ADD_TODO, REMOVE_TODO, UPDATE_TODO} from "../types";
+import {
+    ADD_TODO,
+    CLEAR_ERROR,
+    FETCH_TODOS,
+    HIDE_LOADER,
+    REMOVE_TODO,
+    SHOW_ERROR,
+    SHOW_LOADER,
+    UPDATE_TODO
+} from "../types";
 
 const handlers = {
-    [ADD_TODO]: (state, {title}) => ({...state, todos: [{id: Math.random().toString(), title}, ...state.todos]}),
-    [REMOVE_TODO]: (state, {id}) => {
-        console.log(id,'hehehe')
+    [ADD_TODO]: (state, {title,id}) => ({...state, todos: [{id, title}, ...state.todos]}),
+    [REMOVE_TODO]:(state, {id}) => {
        return ({...state, todos: state.todos.filter(t => t.id !== id)})
     },
-    [UPDATE_TODO]: (state, {title, id}) => ({
+    [UPDATE_TODO]:(state, {title, id}) => ({
         ...state, todos: state.todos.map(todo => {
             if (todo.id === id) {
                 todo.title = title
@@ -14,6 +22,11 @@ const handlers = {
             return todo
         })
     }),
+    [SHOW_LOADER]:(state)=>({...state,loading:true}),
+    [HIDE_LOADER]:(state)=>({...state,loading:false}),
+    [CLEAR_ERROR]:(state)=>({...state,error:null}),
+    [SHOW_ERROR]:(state,{error})=>({...state,error}),
+    [FETCH_TODOS]:(state,{todos})=>({...state,todos}),
     DEFAULT: state => state
 }
 

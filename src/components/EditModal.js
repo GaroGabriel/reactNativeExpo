@@ -15,6 +15,10 @@ Alert.alert('not correct',`min length is 3 now is ${title.trim().length}`)
 
         }
     }
+    const cancelHandler = ()=>{
+        oncancel()
+        setTitle(value)
+    }
     return (
         <Modal visible={visible} animationType='slide'>
             <View style={styles.wrap}>
@@ -26,7 +30,7 @@ Alert.alert('not correct',`min length is 3 now is ${title.trim().length}`)
                     autoCapitalize='none'
                     autoCorrect={false}/>
                 <View style={styles.buttons}>
-                    <AppButton onPress={oncancel} color={THEME.DANGER_COLOR}>
+                    <AppButton onPress={cancelHandler} color={THEME.DANGER_COLOR}>
                         <MaterialIcons name="cancel" size={24} color={THEME.WHITE_COLOR} />
                     </AppButton>
 

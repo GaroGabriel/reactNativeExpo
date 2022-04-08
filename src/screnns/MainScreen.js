@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect,useCallback} from 'react';
 import {FlatList, ScrollView, StyleSheet, View, Image} from "react-native";
 import {AddTodo, Todo} from "../components/__index";
 import {TodoContext} from "../context/todo/todoContext";
@@ -6,8 +6,14 @@ import {ScreenContext} from "../context/screen/screenContext";
 
 
 const MainScreen = () => {
-const {addTodo, todos, removeTodo}=useContext(TodoContext)
+const {addTodo, todos, removeTodo,fetchTodos,loading,error}=useContext(TodoContext)
     const {changeScreen} = useContext(ScreenContext)
+    const loadTodos = useCallback(async ()=> await fetchTodos(),[fetchTodos])
+
+    useEffect(()=>{
+        loadTodos()
+    },[])
+
     let content = (
         <FlatList
             keyExtractor={item => item.id.toString()}

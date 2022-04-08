@@ -10,8 +10,8 @@ import {TodoContext} from "../context/todo/todoContext";
 import {ScreenContext} from "../context/screen/screenContext";
 
 const TodoScreen = ({goBack}) => {
-    const {todos,updateTodo,removeTodo} = useContext(TodoContext)
-    const {todoId,changeScreen} = useContext(ScreenContext)
+    const {todos, updateTodo, removeTodo} = useContext(TodoContext)
+    const {todoId, changeScreen} = useContext(ScreenContext)
     const todo = todos.find(t => t.id === todoId)
 
 
@@ -20,6 +20,7 @@ const TodoScreen = ({goBack}) => {
         updateTodo(todo.id, title)
         setModal(false)
     }
+
     return (
         <View>
             <EditModal
@@ -29,6 +30,7 @@ const TodoScreen = ({goBack}) => {
                 onSave={saveHandler}
 
             />
+
             <AppCard style={styles.card}>
                 <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
                 <AppButton onPress={() => {
@@ -39,7 +41,7 @@ const TodoScreen = ({goBack}) => {
             </AppCard>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <AppButton onPress={()=>changeScreen(null)} color={THEME.BLUE_COLOR}>
+                    <AppButton onPress={() => changeScreen(null)} color={THEME.BLUE_COLOR}>
 
                         <AntDesign name="back" size={24} color={THEME.WHITE_COLOR}/>
                     </AppButton>
